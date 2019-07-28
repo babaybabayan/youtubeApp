@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E4D470E22EDFBE3005B5B35 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D470D22EDFBE3005B5B35 /* Video.swift */; };
 		8E9F448622C91B57008D1E62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F448522C91B57008D1E62 /* AppDelegate.swift */; };
 		8E9F448822C91B57008D1E62 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F448722C91B57008D1E62 /* HomeController.swift */; };
 		8E9F448B22C91B57008D1E62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E9F448922C91B57008D1E62 /* Main.storyboard */; };
@@ -15,9 +16,12 @@
 		8EA5FEBE22EB95BB006A999F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA5FEBD22EB95BB006A999F /* Extensions.swift */; };
 		8EA5FEC122EB95FC006A999F /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA5FEC022EB95FC006A999F /* VideoCell.swift */; };
 		8EA5FEC522EB976F006A999F /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA5FEC422EB976F006A999F /* MenuBar.swift */; };
+		8EA5FEC722EBAAC8006A999F /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA5FEC622EBAAC8006A999F /* MenuBarCell.swift */; };
+		8EA5FEC922EBAB24006A999F /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA5FEC822EBAB24006A999F /* BaseCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E4D470D22EDFBE3005B5B35 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		8E9F448222C91B57008D1E62 /* YoutubeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E9F448522C91B57008D1E62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E9F448722C91B57008D1E62 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -28,6 +32,8 @@
 		8EA5FEBD22EB95BB006A999F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8EA5FEC022EB95FC006A999F /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		8EA5FEC422EB976F006A999F /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		8EA5FEC622EBAAC8006A999F /* MenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarCell.swift; sourceTree = "<group>"; };
+		8EA5FEC822EBAB24006A999F /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +90,9 @@
 		8EA5FEBF22EB95ED006A999F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8EA5FEC822EBAB24006A999F /* BaseCell.swift */,
 				8EA5FEC022EB95FC006A999F /* VideoCell.swift */,
-				8EA5FEC422EB976F006A999F /* MenuBar.swift */,
+				8EA5FEC622EBAAC8006A999F /* MenuBarCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -93,6 +100,7 @@
 		8EA5FEC222EB9676006A999F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8EA5FEC422EB976F006A999F /* MenuBar.swift */,
 				8E9F448722C91B57008D1E62 /* HomeController.swift */,
 			);
 			path = Controllers;
@@ -101,6 +109,7 @@
 		8EA5FEC322EB9693006A999F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8E4D470D22EDFBE3005B5B35 /* Video.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -178,7 +187,10 @@
 			files = (
 				8E9F448822C91B57008D1E62 /* HomeController.swift in Sources */,
 				8EA5FEC122EB95FC006A999F /* VideoCell.swift in Sources */,
+				8EA5FEC722EBAAC8006A999F /* MenuBarCell.swift in Sources */,
 				8EA5FEBE22EB95BB006A999F /* Extensions.swift in Sources */,
+				8EA5FEC922EBAB24006A999F /* BaseCell.swift in Sources */,
+				8E4D470E22EDFBE3005B5B35 /* Video.swift in Sources */,
 				8E9F448622C91B57008D1E62 /* AppDelegate.swift in Sources */,
 				8EA5FEC522EB976F006A999F /* MenuBar.swift in Sources */,
 			);
