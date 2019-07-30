@@ -27,17 +27,29 @@ extension UIView {
     }
 }
 
+let imageCache = NSCache<AnyObject, AnyObject>()
+
 extension UIImageView {
     
     func usingImageWithUrl(imageUrl: String) {
+        
         let request = URLRequest(url: NSURL(string: imageUrl)! as URL)
+        image = nil
+        
+        if let imageFromCache = imageCache.object(forKey: imageUrl as AnyObject) {
+            self.image = imageFromCache as? UIImage
+            return
+        }
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 print(error!)
                 return
             }
             DispatchQueue.main.async(execute: {
-                self.image = UIImage(data: data!)
+                let imageToCache = UIImage(data: data!)
+                imageCache.setObject(imageToCache!, forKey: imageUrl as AnyObject)
+                self.image = imageToCache
             })
         }.resume()
     }
