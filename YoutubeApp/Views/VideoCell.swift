@@ -15,14 +15,16 @@ class VideoCell: BaseCell {
     var videoc: Video? {
         didSet {
             titleLabel.text = videoc?.title
-            if let thumbImage = videoc?.thumbnailImageName {
-                thumbnailImageView.image = UIImage(named: thumbImage)
-            }
             
-            if let profileImage = videoc?.channel?.profilImage {
-                userProfileImage.image = UIImage(named: profileImage)
-                
-            }
+            setupThumbnailUrl()
+            setupProfileImageUrl()
+//            if let thumbImage = videoc?.thumbnailImageName {
+//                thumbnailImageView.image = UIImage(named: thumbImage)
+//            }
+            
+//            if let profileImage = videoc?.channel?.profilImage {
+//                userProfileImage.image = UIImage(named: profileImage)
+//            }
             
             if let channelName = videoc?.channel?.profile, let numberViews = videoc?.numberOfViews {
                 let numberFormatter = NumberFormatter()
@@ -35,7 +37,7 @@ class VideoCell: BaseCell {
                 let size = CGSize(width: frame.height - 16 - 44 - 8 - 16, height: 1000)
                 let option = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
                 let estimatedRect = NSString(string: title).boundingRect(with: size, options: option, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)], context: nil)
-                print(estimatedRect.size)
+                //print(estimatedRect.size)
                 if estimatedRect.size.height > 20 {
                     titleLabelConstraint?.constant = 44
                 } else {
@@ -112,5 +114,17 @@ class VideoCell: BaseCell {
         addConstraint(NSLayoutConstraint(item: subtitleTextview, attribute: .left, relatedBy: .equal, toItem: userProfileImage, attribute: .right, multiplier: 1, constant: 8))
         addConstraint(NSLayoutConstraint(item: subtitleTextview, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         addConstraint(NSLayoutConstraint(item: subtitleTextview, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 30))
+    }
+    
+    func setupThumbnailUrl() {
+        if let thumnailImageurl = videoc?.thumbnailImageName {
+            thumbnailImageView.usingImageWithUrl(imageUrl: thumnailImageurl)
+        }
+    }
+    
+    func setupProfileImageUrl() {
+        if let profileImage = videoc?.channel?.profilImage {
+            userProfileImage.usingImageWithUrl(imageUrl: profileImage)
+        }
     }
 }

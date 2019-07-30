@@ -10,27 +10,31 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    let videos: [Video] = {
-        let babayChannel = Channel()
-        let abayChannel = Channel()
-        babayChannel.profile = "Akbar Putera W"
-        babayChannel.profilImage = "arielprofileimage"
-        abayChannel.profile = "Babay"
-        abayChannel.profilImage = "ironman"
-        
-        let video = Video()
-        video.channel = babayChannel
-        video.title = "Guns n Roses - Sweet Child O'Mine"
-        video.thumbnailImageName = "lunamaya"
-        video.numberOfViews = 12349949
-        
-        let video2 = Video()
-        video2.channel = abayChannel
-        video2.title = "Guns n Roses - Be Patient"
-        video2.thumbnailImageName = "arielprofileimage"
-        video2.numberOfViews = 12333223
-        return [video, video2]
-    }()
+    let urlJson = NSURL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")
+    
+//    let videos: [Video] = {
+//        let babayChannel = Channel()
+//        let abayChannel = Channel()
+//        babayChannel.profile = "Akbar Putera W"
+//        babayChannel.profilImage = "arielprofileimage"
+//        abayChannel.profile = "Babay"
+//        abayChannel.profilImage = "ironman"
+//
+//        let video = Video()
+//        video.channel = babayChannel
+//        video.title = "Guns n Roses - Sweet Child O'Mine"
+//        video.thumbnailImageName = "lunamaya"
+//        video.numberOfViews = 12349949
+//
+//        let video2 = Video()
+//        video2.channel = abayChannel
+//        video2.title = "Guns n Roses - Be Patient"
+//        video2.thumbnailImageName = "arielprofileimage"
+//        video2.numberOfViews = 12333223
+//        return [video, video2]
+//    }()
+    
+    var videos: [Video]?
     
     lazy var navigationTitle: UILabel = {
         let titleView = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
@@ -60,6 +64,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         setupMenuBar()
         setupNavBarButtom()
+        
+        fetchRequest()
     }
     
     func setupNavBarButtom() {
@@ -78,6 +84,36 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         print("Option Pressed")
     }
     
+    func fetchRequest(){
+        let request = URLRequest(url: urlJson! as URL)
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            let json = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+            self.videos = [Video]()
+            for theData in json as! [[String : AnyObject]] {
+                let video = Video()
+                let channel = Channel()
+                
+                video.title = theData["title"] as? String
+                video.thumbnailImageName = theData["thumbnail_image_name"] as? String
+                video.numberOfViews = theData["number_of_views"] as? NSNumber
+                channel.profile = theData["channel"]!["name"] as? String
+                channel.profilImage = theData["channel"]!["profile_image_name"] as? String
+                video.channel = channel
+                
+                self.videos?.append(video)
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.collectionView.reloadData()
+            })
+            
+        }.resume()
+    }
+    
     func setupMenuBar() {
         view.addSubview(menubar)
         
@@ -86,14 +122,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos.count
+        return videos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as? VideoCell
         
-        cell?.videoc = videos[indexPath.row]
+        cell?.videoc = videos?[indexPath.row]
         
         return cell!
     }
